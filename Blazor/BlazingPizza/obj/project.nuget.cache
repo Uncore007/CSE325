@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "yX0fHil1kx8=",
+  "dgSpecHash": "9CBcALRd3GQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\josep\\Documents\\CSE325\\Blazor\\BlazingPizza\\BlazingPizza.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\josep\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.0-preview.5.25277.114\\microsoft.aspnetcore.app.internal.assets.10.0.0-preview.5.25277.114.nupkg.sha512"
+    "C:\\Users\\josep\\.nuget\\packages\\microsoft.netcore.app.ref\\9.0.5\\microsoft.netcore.app.ref.9.0.5.nupkg.sha512",
+    "C:\\Users\\josep\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\9.0.5\\microsoft.windowsdesktop.app.ref.9.0.5.nupkg.sha512",
+    "C:\\Users\\josep\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\9.0.5\\microsoft.aspnetcore.app.ref.9.0.5.nupkg.sha512",
+    "C:\\Users\\josep\\.nuget\\packages\\microsoft.netcore.app.host.win-arm64\\9.0.5\\microsoft.netcore.app.host.win-arm64.9.0.5.nupkg.sha512"
   ],
   "logs": []
 }
