@@ -1,26 +1,24 @@
 @page "/"
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
-@using BlazingPizza.Services
 @inject OrderState OrderState
 
 <div class="main">
-    <h1>Blazing Pizzas</h1>
-    <ul class="pizza-cards">
+  <ul class="pizza-cards">
     @if (specials != null)
     {
-        @foreach (var special in specials)
-        {
-        <li @onclick="@(() => OrderState.ShowConfigurePizzaDialog(special))" style="background-image: url('@special.ImageUrl')">
-            <div class="pizza-info">
-            <span class="title">@special.Name</span>
-            @special.Description
-            <span class="price">@special.GetFormattedBasePrice()</span>
-            </div>
+      @foreach (var special in specials)
+      {
+          <li @onclick="@(() => OrderState.ShowConfigurePizzaDialog(special))" style="background-image: url('@special.ImageUrl')">
+          <div class="pizza-info">
+          <span class="title">@special.Name</span>
+          @special.Description
+          <span class="price">@special.GetFormattedBasePrice()</span>
+          </div>
         </li>
-        }
+      }
     }
-    </ul>
+  </ul>
 </div>
 
 @if (OrderState.ShowingConfigureDialog)
@@ -40,11 +38,11 @@
             @foreach (var configuredPizza in order.Pizzas)
             {
               <div class="cart-item">
+                  <a @onclick="@(() => OrderState.RemoveConfiguredPizza(configuredPizza))" class="delete-item">x</a>
                   <div class="title">@(configuredPizza.Size)" @configuredPizza.Special.Name</div>
                   <div class="item-price">
                       @configuredPizza.GetFormattedTotalPrice()
                   </div>
-                  <a @onclick="@(() => OrderState.RemoveConfiguredPizza(configuredPizza))" class="delete-item">x</a>
               </div>
             }
         </div>
@@ -64,12 +62,12 @@
 </div>
 
 @code {
-    List<PizzaSpecial> specials = new List<PizzaSpecial>();
+  List<PizzaSpecial> specials = new List<PizzaSpecial>();
+  Order order => OrderState.Order;
 
-    Order order => OrderState.Order;
-
-    protected override async Task OnInitializedAsync()
-    {
-        specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "specials");
-    }
+  protected override async Task OnInitializedAsync()
+  {
+      specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "specials");
+  }
 }
+		
