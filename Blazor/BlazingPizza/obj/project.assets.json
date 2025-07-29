@@ -530,9 +530,9 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "Microsoft.EntityFrameworkCore >= 9.0.0",
-      "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.0",
-      "System.Net.Http.Json >= 9.0.0"
+      "Microsoft.EntityFrameworkCore >= 9.0.0-*",
+      "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.0-*",
+      "System.Net.Http.Json >= 9.0.0-*"
     ]
   },
   "packageFolders": {
@@ -580,15 +580,15 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[9.0.0, )"
+            "version": "[9.0.0-*, )"
           },
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
-            "version": "[9.0.0, )"
+            "version": "[9.0.0-*, )"
           },
           "System.Net.Http.Json": {
             "target": "Package",
-            "version": "[9.0.0, )"
+            "version": "[9.0.0-*, )"
           }
         },
         "imports": [
