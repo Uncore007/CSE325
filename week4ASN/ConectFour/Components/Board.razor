@@ -41,11 +41,24 @@
        <span class="@pieces[i]"></span>
     }
 </div>
+
+<div class="scoreboard">
+    <h3>Scoreboard</h3>
+    <p>Player 1: @player1WinCount</p>
+    <p>Player 2: @player2WinCount</p>
+    <p>Ties: @tieCount</p>
+    <p>Total Games: @((player1WinCount + player2WinCount + tieCount).ToString())</p>
+</div>
+
 @code {
     private string[] pieces = new string[42];
 
     private string winnerMessage = string.Empty;
     private string errorMessage = string.Empty;
+
+    private int player1WinCount;
+    private int player2WinCount;
+    private int tieCount;
 
     private string CurrentTurn => (winnerMessage == string.Empty) ? $"Player {State.PlayerTurn}'s Turn" : "";
     private string ResetStyle => (winnerMessage == string.Empty) ? "display: none;" : "";
@@ -53,25 +66,47 @@
     private void PlayPiece(byte col)
     {
         errorMessage = string.Empty;
+        bool piecePlayed = false;
+        
         try
         {
             var player = State.PlayerTurn;
             var turn = State.CurrentTurn;
             var landingRow = State.PlayPiece(col);
             pieces[turn] = $"player{player} col{col} drop{landingRow}";
+            piecePlayed = true;
         }
         catch (ArgumentException ex)
         {
             errorMessage = ex.Message;
         }
 
-        winnerMessage = State.CheckForWin() switch
+        // Only check for win and update scores if a piece was successfully played
+        if (piecePlayed)
         {
-            GameState.WinState.Player1_Wins => "Player 1 Wins!",
-            GameState.WinState.Player2_Wins => "Player 2 Wins!",
-            GameState.WinState.Tie => "It's a tie!",
-            _ => ""
-        };
+            var winState = State.CheckForWin();
+            switch (winState)
+            {
+                case GameState.WinState.Player1_Wins:
+                    player1WinCount++;
+                    break;
+                case GameState.WinState.Player2_Wins:
+                    player2WinCount++;
+                    break;
+                case GameState.WinState.Tie:
+                    tieCount++;
+                    errorMessage = "It's a tie!";
+                    break;
+            }
+
+            winnerMessage = winState switch
+            {
+                GameState.WinState.Player1_Wins => "Player 1 Wins!",
+                GameState.WinState.Player2_Wins => "Player 2 Wins!",
+                GameState.WinState.Tie => "It's a tie!",
+                _ => ""
+            };
+        }
     }
 
     void ResetGame()
@@ -94,5 +129,7 @@
     protected override void OnInitialized()
     {
         State.ResetBoard();
+        player1WinCount = 0;
+        player2WinCount = 0;
     }
 }
